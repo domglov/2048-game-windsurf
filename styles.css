@@ -42,6 +42,10 @@ body {
     aspect-ratio: 1;
     margin: 0 auto;
     touch-action: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .tile {

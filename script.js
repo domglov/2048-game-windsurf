@@ -195,32 +195,30 @@ function moveTiles(direction) {
     }
 }
 
+// Touch handling variables
 let touchStartX = null;
 let touchStartY = null;
-const MIN_SWIPE_DISTANCE = 50; // minimum distance for a swipe
+const MIN_SWIPE_DISTANCE = 30; // Reduced minimum distance for a swipe
 
-document.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-}, false);
+// Add touch event listeners to grid container
+gridContainer.addEventListener('touchstart', handleTouchStart, false);
+gridContainer.addEventListener('touchend', handleTouchEnd, false);
 
-document.addEventListener('touchmove', function(e) {
+function handleTouchStart(e) {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    e.preventDefault(); // Prevent default touch behavior
+}
+
+function handleTouchEnd(e) {
     if (!touchStartX || !touchStartY) {
         return;
     }
-    e.preventDefault(); // Prevent scrolling while swiping
-}, { passive: false });
 
-document.addEventListener('touchend', function(e) {
-    if (!touchStartX || !touchStartY) {
-        return;
-    }
-
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartX;
+    const deltaY = touch.clientY - touchStartY;
 
     // Reset touch start points
     touchStartX = null;
@@ -247,9 +245,11 @@ document.addEventListener('touchend', function(e) {
             moveTiles('up');
         }
     }
-}, false);
+    e.preventDefault(); // Prevent any default behavior
+}
 
-document.addEventListener('keydown', function handleKey(e) {
+// Keyboard controls
+document.addEventListener('keydown', function(e) {
     switch (e.key) {
         case 'ArrowLeft':
             moveTiles('left');
