@@ -195,9 +195,61 @@ function moveTiles(direction) {
     }
 }
 
-document.addEventListener('keydown', handleKey);
+let touchStartX = null;
+let touchStartY = null;
+const MIN_SWIPE_DISTANCE = 50; // minimum distance for a swipe
 
-function handleKey(e) {
+document.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, false);
+
+document.addEventListener('touchmove', function(e) {
+    if (!touchStartX || !touchStartY) {
+        return;
+    }
+    e.preventDefault(); // Prevent scrolling while swiping
+}, { passive: false });
+
+document.addEventListener('touchend', function(e) {
+    if (!touchStartX || !touchStartY) {
+        return;
+    }
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Reset touch start points
+    touchStartX = null;
+    touchStartY = null;
+
+    // Determine if it's a swipe based on minimum distance
+    if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < MIN_SWIPE_DISTANCE) {
+        return;
+    }
+
+    // Determine swipe direction based on larger delta
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (deltaX > 0) {
+            moveTiles('right');
+        } else {
+            moveTiles('left');
+        }
+    } else {
+        // Vertical swipe
+        if (deltaY > 0) {
+            moveTiles('down');
+        } else {
+            moveTiles('up');
+        }
+    }
+}, false);
+
+document.addEventListener('keydown', function handleKey(e) {
     switch (e.key) {
         case 'ArrowLeft':
             moveTiles('left');
@@ -212,6 +264,6 @@ function handleKey(e) {
             moveTiles('down');
             break;
     }
-}
+});
 
 createBoard();
