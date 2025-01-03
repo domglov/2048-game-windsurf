@@ -11,24 +11,32 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    width: 100%;
 }
 
 .game-container {
-    padding: 15px;
-    max-width: 100%;
-    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 10px;
     background-color: #bbada0;
     border-radius: 6px;
-    padding: 15px;
+    padding: 10px;
     position: relative;
-    width: min(400px, 95vw);
+    width: min(95vw, 400px);
     aspect-ratio: 1;
+    margin: 0 auto;
 }
 
 .tile {
@@ -160,10 +168,11 @@ body {
 }
 
 .score-container {
+    width: min(95vw, 400px);
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    gap: 20px;
+    gap: 10px;
 }
 
 .current-score, .best-score {
@@ -261,22 +270,34 @@ body {
 }
 
 @media (max-width: 480px) {
+    .game-container {
+        padding: 10px 5px;
+    }
+    
+    .grid-container {
+        gap: 8px;
+        padding: 8px;
+    }
+
     .score-container {
-        flex-direction: row;
-        gap: 10px;
+        gap: 8px;
     }
 
     .current-score, .best-score {
-        padding: 10px 15px;
-        min-width: 80px;
+        padding: 8px 12px;
+        min-width: 70px;
     }
 
     #score, #high-score {
-        font-size: 20px;
+        font-size: 18px;
+    }
+
+    .score-label {
+        font-size: 12px;
     }
 
     .game-over h2 {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .game-over button {
