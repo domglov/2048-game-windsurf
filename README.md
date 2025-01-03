@@ -2,6 +2,10 @@
 
 A modern implementation of the classic 2048 game built with HTML, CSS, and JavaScript.
 
+## Play Online
+
+ [Play the game here](https://domglov.github.io/2048-game-windsurf/)
+
 ## Features
 
 - Smooth tile animations
@@ -17,6 +21,11 @@ A modern implementation of the classic 2048 game built with HTML, CSS, and JavaS
 3. Add them up to reach 2048!
 4. Game ends when no more moves are possible
 
-## Try it Out
+## Local Development
 
-Open `index.html` in your browser to start playing!
+1. Clone the repository:
+```bash
+git clone https://github.com/domglov/2048-game-windsurf.git
+```
+
+2. Open `index.html` in your browser to start playing!
